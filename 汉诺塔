@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std; 
+
+//汉诺塔递归实现
+int Hannuota(int n) {
+ if (n == 1)
+ {
+  return 1;
+ }
+ else
+ {
+  return 2 * Hannuota(n - 1) + 1;
+ }
+}
+void Step(int n,char A,char B,char C) //A、B、C分别代表柱子A,B,C 
+{
+ if(n==1)
+ {
+  cout<<A<<"-->" <<C<<endl;
+ }
+ else
+ {
+  Step(n-1,A,C,B);
+  cout<<A<<"-->"<<C<<endl;
+  Step(n-1,B,A,C);
+ }
+}
+
+int main()
+{
+ int n = 3, num;
+ num = Hannuota(n);
+ Step(n,'A','B','C');
+ cout<<"汉诺塔中"<<n<<"片圆盘共需移动次数"<<num<<"次";
+ return 0;
+}
