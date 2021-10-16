@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+//阶乘递归的实现
+int Jiecheng(int n)
+{
+ if(n==1)
+ {
+  return 1;
+ }
+ else 
+ {
+  return Jiecheng(n-1)*n;
+ }
+} 
+
+//阶乘递推的实现
+int Jiecheng1(int n)
+{
+ if(n==1)
+ {
+  return 1;
+ }
+ int result=1;
+ for(int i=2;i<=n;i++)
+ {
+  result=result*i;
+ }
+ return result;
+}
+
+
+int main(int argc, char** argv) {
+ cout<<Jiecheng(5)<<endl;
+ cout<<Jiecheng1(5)<<endl;
+ return 0;
+}
+复杂度分析: 输入n时，调用了n次阶乘函数，且函数内代码的执行次数为常数级，时间复杂度T(n)=O(n),空间复杂度S(n)=O(n)
