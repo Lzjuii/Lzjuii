@@ -1,0 +1,48 @@
+//台阶问题 
+#include <iostream>
+using namespace std;
+
+//递归的实现 
+int func(int n){
+ if(n==1){
+  return 1;
+ }
+ if(n==2){
+  return 2;
+ }
+ for(int i=3;i<=n;i++){
+  return func(n-1)+func(n-2);
+ }
+}
+
+//递推的实现
+int func1(int n){
+ if(n==1)
+ {
+  return 1;
+ }
+ if(n==2)
+ {
+ return 2; 
+ }
+int Prepre=1;
+int pre=2;
+int result=0;
+
+ for(int i=3;i<=n;i++)
+ {
+ result=Prepre+pre;
+  Prepre=pre;
+  pre=result;
+ } 
+ return result;
+}
+
+int main(int argc, char** argv) 
+{ 
+ cout<<func(10)<<endl; 
+ cout<<func1(10)<<endl; 
+ return 0;
+}
+
+复杂度分析: 在递推方法中，当n大于等于3时，循环语句要经历n-2次，时间复杂度T(n)=O(n),使用内存空间与n无关，空间复杂度S(n)=O(1)
