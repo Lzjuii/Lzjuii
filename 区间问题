@@ -1,0 +1,32 @@
+先用一条最长的线段把整个区间覆盖起来，然后把区间点之间的空隔线段按照先长后短的顺序一一去掉，使总线段长度尽可能短，直到线段的数量增加到到规定的数目停止；
+
+#include iostream
+#include algorithm
+using namespace std;
+
+int descend(int a,int b)
+{
+return a>b;
+}
+int main()
+{
+int n,m,minLength;
+int point[200],distance[200];
+while(cin>>n>>m)
+{
+for(int i=0;i
+{
+cin>>point[i];
+}
+sort(point,point+n);
+minLength=point[n-1]-point[0]+1;
+for(i=0;i
+distance[i]=point[i+1]-point[i]-1;
+int nn=n-1;
+sort(distance,distance+nn,descend);
+for(i=0;i
+minLength-=distance[i];
+cout<<minLength<<endl;
+}
+return 0;
+}
