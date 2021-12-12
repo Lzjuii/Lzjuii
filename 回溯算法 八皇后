@@ -1,0 +1,59 @@
+#include <iostream>
+#include<math.h>
+using namespace std;
+ 
+int Place(int k,int x[])
+{
+	for(int i=0;i<k;i++)
+		if(x[i]==x[k] || abs(i-k)==abs(x[i]-x[k]))
+			return 1;
+	return 0;		
+}
+ 
+int Queen(int n,int x[],int sum)
+{
+	int k=0;
+	int flag=0;
+	
+	while (k>=0)
+	{
+		x[k]++;
+	
+		while(x[k]<n && Place(k,x)==1)
+			x[k]++;
+		if(x[k]<n && k==n-1)
+		{
+			flag=1;
+			sum++; 
+			for(int i=0;i<n;i++)
+				cout<<x[i]+1<<"  ";
+			cout<<endl;
+			if(k<n && x[0]<n)
+			{
+				x[k--]=-1;
+				continue;
+			}
+			
+		}
+		if(x[k]<n && k<n-1)
+			k+=1;
+		else 
+			x[k--]=-1;
+		
+	}
+	if(flag==0)
+	cout<<"无解。"<<endl; 
+	return sum;
+} 
+ 
+int main()
+{
+	int sum=0;
+	int n=8;
+	int x[8];
+	for(int i=0;i<n;i++)
+		x[i]=-1;
+	sum=Queen(n,x,sum);
+	cout<<"解毕，共有 "<< sum <<" 个解。"<<endl;
+	return 0;
+}
