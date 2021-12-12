@@ -1,0 +1,59 @@
+//在增序数组中寻找第一个大于等于目标数的数的下标
+int find(vector<int>& nums, int target)
+{
+    int left = 0, right = nums.size();
+    while (left < right)//最后出来时，left=right，随便返回哪个均可
+    {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] < target)
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    return left;
+}
+
+//在增序数组中寻找最后一个小于目标数的数的下标
+int find(vector<int>& nums, int target)
+{
+    int left = 0, right = nums.size();
+    while (left < right)//最后出来时，left=right，随便返回哪个均可
+    {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] < target)
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    return right-1;
+}
+
+//在增序数组中寻找第一个大于目标数的数的下标
+int find(vector<int>& nums, int target)
+{
+    int left = 0, right = nums.size();
+    while (left < right)//最后出来时，left=right，随便返回哪个均可
+    {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] <= target)
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    return left;
+}
+
+//在增序数组中寻找最后一个小于等于目标数的数的下标
+int find(vector<int>& nums, int target)
+{
+    int left = 0, right = nums.size();
+    while (left < right)//最后出来时，left=right，随便返回哪个均可
+    {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] <= target)
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    return right-1;
+}
