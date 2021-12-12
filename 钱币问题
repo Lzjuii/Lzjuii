@@ -1,0 +1,44 @@
+将原问题分解为同性质的若干相同子结构，在求解最优值的过程中将子结构的最优值记录到一个表中
+
+#include <iostream>
+//#include <cstdio>
+using namespace std;
+const int maxvalue = 20001;
+const int coinnum = 15;
+int mymin(int a, int b)
+{
+    return a < b ? a : b;
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    int coin[coinnum];
+    int coincount[coinnum];
+    for(int i = 0; i < n; i++)
+    {
+        cin >> coin[i];
+        cin >> coincount[i];
+    }
+    int m;
+    cin >> m;
+    int *dp = new int[maxvalue]();
+    for(int i = 1; i <= m;i++)
+        dp[i] = maxvalue;
+    int i, j, k;
+    for(i = 0; i < n; i++)
+    {
+        for(j = 1; j <= coincount[i]; j++)
+        {
+            for(k = m; k >= coin[i]; k--)
+            {
+                dp[k] = mymin(dp[k - coin[i]] + 1, dp[k]);
+            }
+        }
+    }
+    if(dp[m] == maxvalue)
+        cout << -1 << endl;
+    else cout << dp[m] << endl;
+    return 0;
+}
