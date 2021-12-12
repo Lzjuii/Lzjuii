@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> SelectSort(vector<int>list)
+{
+	vector<int>result;
+	if (list.empty())  //判断list是否为空
+		return list;
+	result = list;
+	
+	for (int i = 0; i < result.size(); i++)  //从下标为0的元素开始
+	{
+		int k = i;                          //设置每次循环默认最小值为起始值
+		for (int j = i + 1; j < result.size(); j++)  //从每次起始值的下一个位置开始
+		{
+			if (result[j] < result[k])  //将后面的元素与前面的元素进行比较
+				k = j;                 //记录下每趟循环的最小值下标
+		}
+		if (k != i)                 //如果循环一次的最小值不是起始值，则交换起始值与最小值
+		{
+			int temp = result[k];
+			result[k] = result[i];
+			result[i] = temp;
+		}
+	}
+	return result;
+}
+
+int main()
+{
+	int arr[] = { 6, 4, 8, 9, 2, 3, 1 };
+	vector<int>test(arr, arr + sizeof(arr) / sizeof(arr[0]));
+	cout << "排序前：" << endl;
+	for (int i = 0; i < test.size(); i++)
+	{
+		cout << test[i] << " ";
+
+	}
+	cout << endl;
+
+	vector<int>result = SelectSort(test);
+	cout << "排序后：" << endl;
+	for (int i = 0; i < result.size(); i++) {
+		cout << result[i] << " ";
+	}
+	cout << endl;
+
+	system("pause");
+}
