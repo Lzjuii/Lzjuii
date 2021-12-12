@@ -1,0 +1,71 @@
+#include<iostream>
+using namespace std;
+
+void Merge(int[], int, int[], int, int, int)  //归并函数的声明【把归并函数提到该函数前面，则不用声明】
+void MergeSort(int numbers[], int length, int temp[], int begin, int end)
+{
+	//1. 同样判断传入的参数是否有效
+	if (numbers == nullptr || length <= 0 || begin < 0 || end >= length)
+		throw new exception("Invalid input.");
+	
+	//2. 作为递归的结束条件，开始下标和结束下标相等时，说明子序列中只有一个元素，看作有序的
+	if (end - begin == 0)
+		return;
+
+	//3. 定义中间变量，将数组分半【如果有7个元素，下标0-6，则middle=3，数组分为长度为4和3的两段】
+	int middle = ((end - begin) / 2 ) + begin;
+	//4. 递归，先递归左半边，再递归右半边，将左右子序列不断分为长度为1的子序列才停止递归
+	MergeSort(numbers, length, temp, begin, middle);
+	MergeSort(numbers, length, temp, middle + 1, end);
+	//5. 再慢慢归并
+	Merge(numbers, length, temp, begin, end, middle);
+}
+void Merge(int numbers[], int length, int temp[], int begin, int end, int middle)
+{
+	//1. 判断是否有不符合要求的参数传入，有则抛出错误
+	if (numbers == nullptr || length <= 0 || begin < 0 || end >= length)
+		throw new exception("Invalid input.");
+
+	//2. 将原序列从中分开
+	int leftIndex = begin;		//左边序列的开始（左边序列的结尾是middle）
+	int rightIndex = middle + 1;//右边序列的开始（右边序列的结尾是end）
+	int tempIndex = begin;		//辅助数组的下标
+	//3. 当左右子序列尚未到头时，循环
+	while (leftIndex <= middle && rightIndex <= end)
+	{
+		//4. 两两对比判断，谁大谁就放入辅助数组，同时指针后移
+		if (numbers[leftIndex] < numbers[rightIndex])
+			temp[tempIndex] = numbers[leftIndex++];
+		else
+			temp[tempIndex] = numbers[rightIndex++];
+		//5. 辅助数组下标++
+		++tempIndex;
+	}
+
+	//6. 当左边或右边子序列尚未到头时，直接放入辅助数组
+	while (leftIndex <= middle)
+		temp[tempIndex++] = numbers[leftIndex++];
+
+	while (rightIndex <= end)
+		temp[tempIndex++] = numbers[rightIndex++];
+
+	//7. 再将辅助数组中已经有序的元素覆盖掉原数组中无序的元素，使原数组变成部分有序
+	for (int i = begin; i <= end; ++i)
+		numbers[i] = temp[i];
+}
+int main(int arvc, char* argv[])
+{
+	const int length = 9;
+	int nums[length] = { 18, 7, 23, 3, 9, 32, 10 , 99, 0};
+	int *temp = new int[length];
+
+	MergeSort(nums, length, temp, 0, 8);
+
+	for (int i = 0; i < length; i++)
+		cout << nums[i] << "  ";
+
+	delete[] temp;
+	temp = nullptr;
+	cout << endl;
+	return 0;
+}
