@@ -1,5 +1,5 @@
 
- 1. o(n*n) 做法
+ 1. 𝑂(𝑛^2 ) 做法
 
 #include<bits/stdc++.h>
 using namespace std;
