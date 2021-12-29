@@ -1,0 +1,65 @@
+
+3.
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+const int N = 1e5 + 10;
+//cp:用来转换a数组的下标为对应的纸币金额，cp[0]对应1元，cp[1]对应2元，cp[2]对应5元,...cp[6]对应100元
+int cp[10];
+//dp[i]代表支付i元需要的最少纸币
+int dp[N];
+//初始化cp数组
+void init()
+{
+    cp[0] = 1, cp[1] = 2, cp[2] = 5, cp[3] = 10, cp[4] = 20, cp[5] = 50, cp[6] = 100;
+}
+//计算出支付u元需要的最少纸币数量
+void dfs(int u, int k)
+{
+    //遍历每一种纸币
+    for(int i = 0; i < 7; i++)
+    {
+        //创建变量x对应cp[i],即当前这个纸币的价格
+        int x = cp[i];
+        //最开始几次可能会出现u - x < 0 的情况，所以需要特判
+        if(u - x < 0)   continue;
+        //选择第u元是由第u-x元得到的
+        dp[u] = min(dp[u], dp[u - x] + 1);
+    }
+    //如果已经迭代到第k元，那么就结束迭代
+    if(u == k)
+    {
+        return ;
+    }
+    //否则迭代u+1元
+    else
+    {
+        dfs(u + 1, k);
+    }
+}
+
+int main()
+{
+    //初始化cp数组
+    init();
+    //初始化设置支付i元需要的纸币数量为正无穷多，为状态转移做准备
+    memset(dp, 0x3f, sizeof dp);
+    //支付0元需要的纸币数量为0
+    dp[0] = 0;
+    //输入需要支付的k元
+    int k;
+    cin >> k;
+    //从1块钱开始遍历
+    dfs(1, k);
+    //dp[k]即是支付k元需要的最少的纸币需要，如果满足不了，则输出的值为：1061109567 ->转换成16进制表达为：0x3f3f3f3f
+    if(dp[k] == 0x3f3f3f3f)
+    {
+        cout << "不能支付" << endl;
+    }
+    else
+    {
+        cout << dp[k] << endl;
+    }
+    return 0;
+}
