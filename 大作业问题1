@@ -1,0 +1,38 @@
+
+ 1. o(n*n) 做法
+
+#include<bits/stdc++.h>
+using namespace std;
+//定义需要输入的最大数组的长度
+const int N = 1e5 + 10;
+//定义一个数组，用来接受输入
+int a[N];
+
+int main()
+{
+    int n, k;
+    //输入数组的长度和要查询的第k大
+    cin >> n >> k;
+    //输入数字
+    for(int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    //进行冒泡排序，复杂度为n*n
+    for(int i = 0; i < n - 1; i++)
+    {
+        for(int j = 0; j < n - i - 1; j++)
+        {
+            if(a[j] < a[j + 1])
+            {
+                int temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+    //下标从0开始，所以输出第k-1个
+    cout << a[k - 1] << endl;
+
+    return 0;
+}
