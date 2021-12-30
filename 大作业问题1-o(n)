@@ -51,3 +51,6 @@ int main()
     cout << kth_element(n, a, k)<<endl;
     return 0;
 }
+
+
+需要一个临时的数组，空间复杂度S(n)=O(n)
